@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#080d18">
+<title>Vivek Gaming Zone</title>
+<style>
+:root{--bg:#080d18;--panel:#111b2d;--panel2:#17243a;--cyan:#39e7ff;--lime:#a8ff60;--text:#f4f7ff;--muted:#a9b6ca}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 20% 0%,#142b43 0,transparent 38%),var(--bg);color:var(--text);font-family:Arial,sans-serif}
+header{padding:26px 16px 20px;text-align:center;border-bottom:1px solid #263650}
+.logo{font-size:clamp(28px,7vw,48px);font-weight:900;letter-spacing:1px;text-shadow:0 0 18px #39e7ff66}.logo span{color:var(--cyan)}
+header p{color:var(--muted);margin:8px 0 0}.wrap{max-width:1050px;margin:auto;padding:22px 16px 50px}
+.hero{background:linear-gradient(120deg,#142a43,#17213a);border:1px solid #2b4764;border-radius:18px;padding:22px;margin-bottom:24px}
+.hero h1{margin:0 0 8px;font-size:25px}.hero p{color:var(--muted);margin:0;line-height:1.5}
+.section-title{display:flex;align-items:center;gap:10px;margin:26px 0 14px;font-size:21px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+.card{background:linear-gradient(150deg,var(--panel2),var(--panel));border:1px solid #2a3b55;border-radius:16px;padding:17px;min-height:145px}
+.icon{font-size:32px}.card h3{margin:9px 0 6px}.card p{color:var(--muted);font-size:14px;line-height:1.4;margin:0 0 13px}
+button{border:0;border-radius:10px;padding:11px 15px;background:linear-gradient(90deg,var(--cyan),var(--lime));color:#07111b;font-weight:800;cursor:pointer}
+button.secondary{background:#263852;color:var(--text);border:1px solid #405777}
+.gamebox{display:none;background:#0e1929;border:1px solid #2d4664;border-radius:16px;padding:18px;margin-top:18px}
+.gamebox.active{display:block}.gamebox h3{margin-top:0}.game-status{color:var(--cyan);font-weight:bold;min-height:24px}
+.board{display:grid;grid-template-columns:repeat(3, minmax(65px,90px));gap:8px;margin:14px 0}
+.cell{height:76px;background:#1b2b43;color:white;border:1px solid #3b5576;border-radius:12px;font-size:30px;font-weight:bold}
+.memory{display:grid;grid-template-columns:repeat(4,minmax(48px,70px));gap:8px;margin:14px 0}
+.memory button{height:60px;padding:0;font-size:24px;background:#243956;color:white;border:1px solid #46617f}
+.tap-area{width:min(100%,340px);height:125px;margin:14px 0;background:#243956;color:white;border:1px dashed #6e8ba9;border-radius:14px;font-size:17px}
+footer{text-align:center;color:var(--muted);font-size:13px;padding:22px;border-top:1px solid #263650}
+.small{font-size:12px;color:var(--muted);line-height:1.5}
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">VIVEK <span>GAMING ZONE</span></div>
+  <p>Play • Challenge • Have Fun</p>
+</header>
+<main class="wrap">
+  <section class="hero">
+    <h1>Welcome to your gaming zone! 🎮</h1>
+    <p>Choose a game below and start playing. This first version includes simple games that work right in your mobile browser.</p>
+  </section>
+
+  <h2 class="section-title">🔥 Choose Your Game</h2>
+  <div class="grid">
+    <article class="card"><div class="icon">⭕</div><h3>Tic-Tac-Toe</h3><p>Play a classic X and O game on the same device.</p><button onclick="openGame('tic')">Play Now</button></article>
+    <article class="card"><div class="icon">🧠</div><h3>Memory Match</h3><p>Flip cards and find all matching pairs.</p><button onclick="openGame('memory')">Play Now</button></article>
+    <article class="card"><div class="icon">⚡</div><h3>Reaction Challenge</h3><p>Wait for green, then tap as quickly as you can.</p><button onclick="openGame('reaction')">Play Now</button></article>
+    <article class="card"><div class="icon">🏎️</div><h3>Racing Games</h3><p>A racing-games section for future additions.</p><button class="secondary" onclick="alert('More racing games will be added in a future update!')">Coming Soon</button></article>
+    <article class="card"><div class="icon">🏏</div><h3>Cricket Games</h3><p>A cricket-games section for future additions.</p><button class="secondary" onclick="alert('More cricket games will be added in a future update!')">Coming Soon</button></article>
+    <article class="card"><div class="icon">🧩</div><h3>Puzzle Zone</h3><p>More puzzles and brain games can be added here.</p><button class="secondary" onclick="alert('More puzzle games will be added in a future update!')">Coming Soon</button></article>
+  </div>
+
+  <section id="tic" class="gamebox">
+    <h3>⭕ Tic-Tac-Toe</h3><div id="ticStatus" class="game-status">X's turn</div>
+    <div class="board" id="board"></div>
+    <button class="secondary" onclick="resetTic()">Restart</button>
+  </section>
+  <section id="memory" class="gamebox">
+    <h3>🧠 Memory Match</h3><div id="memStatus" class="game-status">Find all 4 pairs.</div>
+    <div class="memory" id="memoryBoard"></div><button class="secondary" onclick="startMemory()">Restart</button>
+  </section>
+  <section id="reaction" class="gamebox">
+    <h3>⚡ Reaction Challenge</h3><div id="reactionStatus" class="game-status">Press Start, wait for green, then tap.</div>
+    <button id="reactionStart" onclick="startReaction()">Start</button>
+    <button id="tapArea" class="tap-area" onclick="tapReaction()">Tap here when green</button>
+  </section>
+  <p class="small">Tip: This is your starter website. Add only games you have permission to use, and check a game's age rating before sharing it.</p>
+</main>
+<footer>© <span id="year"></span> Vivek Gaming Zone • Made for fun</footer>
+<script>
+document.getElementById('year').textContent=new Date().getFullYear();
+function openGame(id){document.querySelectorAll('.gamebox').forEach(x=>x.classList.remove('active'));document.getElementById(id).classList.add('active');document.getElementById(id).scrollIntoView({behavior:'smooth',block:'start'});}
+let cells,turn,finished;
+function resetTic(){cells=Array(9).fill('');turn='X';finished=false;document.getElementById('ticStatus').textContent="X's turn";drawTic();}
+function drawTic(){let b=document.getElementById('board');b.innerHTML='';cells.forEach((v,i)=>{let x=document.createElement('button');x.className='cell';x.textContent=v;x.onclick=()=>moveTic(i);b.appendChild(x);});}
+function moveTic(i){if(finished||cells[i])return;cells[i]=turn;drawTic();let wins=[[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];if(wins.some(w=>w.every(k=>cells[k]===turn))){document.getElementById('ticStatus').textContent=turn+' wins! 🎉';finished=true;return;}if(cells.every(Boolean)){document.getElementById('ticStatus').textContent="It's a draw!";finished=true;return;}turn=turn==='X'?'O':'X';document.getElementById('ticStatus').textContent=turn+"'s turn";}
+resetTic();
+const icons=['🍎','🚀','⚽','🎮','🍎','🚀','⚽','🎮'];let first=null,lock=false,matches=0;
+function startMemory(){let a=[...icons].sort(()=>Math.random()-.5);first=null;lock=false;matches=0;document.getElementById('memStatus').textContent='Find all 4 pairs.';let b=document.getElementById('memoryBoard');b.innerHTML='';a.forEach((v,i)=>{let c=document.createElement('button');c.textContent='?';c.dataset.value=v;c.dataset.index=i;c.onclick=()=>flip(c);b.appendChild(c);});}
+function flip(c){if(lock||c.textContent!=='?')return;c.textContent=c.dataset.value;if(!first){first=c;return;}if(first.dataset.value===c.dataset.value){matches++;first.disabled=true;c.disabled=true;first=null;if(matches===4)document.getElementById('memStatus').textContent='You matched every pair! 🎉';}else{lock=true;let prev=first;first=null;setTimeout(()=>{prev.textContent='?';c.textContent='?';lock=false;},700);}}
+startMemory();
+let ready=false,startedAt=0,timer=null;
+function startReaction(){clearTimeout(timer);ready=false;let a=document.getElementById('tapArea');a.style.background='#243956';a.textContent='Wait for green…';document.getElementById('reactionStatus').textContent='Get ready!';document.getElementById('reactionStart').disabled=true;timer=setTimeout(()=>{ready=true;startedAt=performance.now();a.style.background='#176b42';a.textContent='TAP NOW!';document.getElementById('reactionStatus').textContent='GO!';},1500+Math.random()*3000);}
+function tapReaction(){let a=document.getElementById('tapArea');if(ready){let ms=Math.round(performance.now()-startedAt);document.getElementById('reactionStatus').textContent='Your reaction time: '+ms+' ms';a.textContent='Nice try!';ready=false;document.getElementById('reactionStart').disabled=false;}else{clearTimeout(timer);document.getElementById('reactionStatus').textContent='Too early! Press Start to try again.';a.style.background='#6b3424';a.textContent='Too soon!';document.getElementById('reactionStart').disabled=false;}}
+</script>
+</body>
+</html>
